@@ -1,0 +1,2 @@
+handlebars:
+  cache: false  # 生产环境，需要把这个设为true
