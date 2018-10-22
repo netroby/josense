@@ -13,4 +13,8 @@ open class AdminController {
     fun list(): String {
         return "admin/list"
     }
+    @GetMapping("/admin/files")
+    fun files(): String {
+        return "admin/list"
+    }
 }
