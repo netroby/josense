@@ -9,4 +9,8 @@ open class HomeController {
     fun home(): String {
         return "home"
     }
+    @GetMapping("/view")
+    fun view(): String {
+        return "home"
+    }
 }
