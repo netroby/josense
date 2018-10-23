@@ -45,8 +45,8 @@ repositories {
 
 
 dependencies {
-	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	//compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -56,6 +56,8 @@ dependencies {
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
+	compile 'org.postgresql:postgresql:42.2.5'
+
 }
 
 bootRun {
