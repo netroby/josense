@@ -57,7 +57,7 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0')
 	compile('org.postgresql:postgresql:42.2.5')
-
+	compile 'com.alibaba:druid-spring-boot-starter:1.1.10'
 }
 
 bootRun {
