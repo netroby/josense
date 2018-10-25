@@ -13,8 +13,10 @@ import javax.persistence.Id
 @Data
 class Article : Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    var aid: Long = 0;
-    var title: String = "";
-    var content: String = "";
-
+    var aid: Long = 0
+    var title: String = ""
+    var content: String = ""
+    var publishStatus: Long = 0
+    var publishTime: Long = 0
+    var views: Long = 0
 }
