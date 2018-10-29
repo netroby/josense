@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .title }} {{ .site_name }} powered by josense!</title>
+    <meta name="description" content="{{.site_description}}" />
+    <link href="/rss" rel="alternate" type="application/rss+xml" title="Hard Coder" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/default.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+{{  template "ga.html" }}
+</head>
+<body>
+<header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
+    <div class="container">
+        <div class="">
+            <a href="/" class="navbar-brand">{{ .site_name }}</a>
+        </div>
+        <nav class="collapse navbar-collapse " role="navigation">
+            <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    {{if .username }}
+                    <div style="color:white">
+                        Welcome {{ .username }}
+                        <a href="/admin">Dashboard</a>
+                        <a href="/admin/addblog">Add blog</a>
+                        <a href="/admin/logout">Logout</a>
+                    </div>
+                    {{else}}
+                    <div> Welcome </div>
+                    {{end}}
+                    <form action="/search" method="get" style="margin-top:10px">
+                        <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="content">
+        <div class="blog-title-box">
+            <h2 id="blog-title">{{ .title }}</h2>
+        </div>
+        <div class="blog-body">
+          {{ .content }}</div>
+        <div class="blog-orig">
+            <p>Post: {{ .publish_time }}</p>
+            <p>Views: {{ .views }}</p>
+            {{if .username}}
+            <p><a href="/admin/editblog/{{ .aid }}">Edit blog</a></p>
+            {{end}}
+        </div>
+        <div class="clearfix h10"></div>
+        <div class="addthis_sharing_toolbox"></div>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-514ff8081944d017" async="async"></script>
+        <div class="clearfix h10"></div>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES * * */
+            var disqus_shortname = 'netroby';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <div class="clearfix h10"></div>
+    </div>
+</div>
+{{  template "donate.html" }}
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</body>
+</html>

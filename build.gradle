@@ -49,6 +49,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+	compile 'com.alibaba:fastjson:1.2.51'
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	runtime('org.springframework.boot:spring-boot-devtools')

@@ -10,6 +10,6 @@ spring:
       maxActive: 100
       maxWait: 60000
       validationQuery: SELECT 1
-      filters: stat,wall
+      filters: stat,wall,log4j
 handlebars:
   cache: false  # 生产环境，需要把这个设为true
