@@ -27,7 +27,7 @@ open class AdminController (@Autowired private val articleRepository: ArticleRep
         val result =  articleRepository.findAll(pageable)
         model.addAttribute("result", result.content)
         logger.info("Hello world")
-        logger.info("result {}", JSON.toJSONString(result))
+        logger.info("result {}", result.content)
         return ModelAndView("admin/home")
     }
     @GetMapping("/admin/list")
