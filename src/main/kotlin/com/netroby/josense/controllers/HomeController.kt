@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 
 @Controller
-open class HomeController (@Autowired private val articleRepository: ArticleRepository){
+class HomeController (@Autowired private val articleRepository: ArticleRepository){
     private val logger = LoggerFactory.getLogger("home")
     @GetMapping("/")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): ModelAndView {
