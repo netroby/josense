@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 
@@ -24,8 +25,11 @@ open class HomeController (@Autowired private val articleRepository: ArticleRepo
         logger.info("result {}", result.content)
         return ModelAndView("home")
     }
-    @GetMapping("/view")
-    fun view(): String {
-        return "home"
+    @GetMapping("/view/{id}")
+    fun view(model: Model, @PathVariable("id") id: Int): ModelAndView {
+        val result = articleRepository.findById(id.toLong());
+        model.addAttribute("result", result.get())
+        logger.info("result {}", result)
+        return ModelAndView("view")
     }
 }
