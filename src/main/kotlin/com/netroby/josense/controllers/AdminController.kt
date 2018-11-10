@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView
 
 
 @Controller
-open class AdminController (@Autowired private val articleRepository: ArticleRepository){
+class AdminController (@Autowired private val articleRepository: ArticleRepository){
     private val logger = LoggerFactory.getLogger("admin")
     @GetMapping("/admin")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): ModelAndView {
