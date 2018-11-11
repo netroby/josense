@@ -32,4 +32,12 @@ class HomeController (@Autowired private val articleRepository: ArticleRepositor
         logger.info("result {}", result)
         return ModelAndView("view")
     }
+    @GetMapping("/login")
+    fun login(model: Model): ModelAndView {
+        return ModelAndView("login")
+    }
+    @GetMapping("/logout")
+    fun logout(model: Model): ModelAndView {
+        return ModelAndView("logout")
+    }
 }
