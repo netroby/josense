@@ -54,7 +54,10 @@
 <div class="container">
     <div class="content">
         <ul class="blog-list">
-            {{> bloglist}}
+
+            {{#each result}}
+                <li><a href="/view/{{ aid }}">{{ title}}</a> Views({{ views}})</li>
+            {{/each}}
         </ul>
         <div class="txtcenter">
 

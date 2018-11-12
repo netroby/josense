@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://192.168.18.128:5432/josense
@@ -10,6 +12,9 @@ spring:
       maxActive: 100
       maxWait: 60000
       validationQuery: SELECT 1
-      filters: stat,wall,log4j
+      filters: stat,wall
 handlebars:
   cache: false  # 生产环境，需要把这个设为true
+account:
+  username: admin
+  password: admin@123

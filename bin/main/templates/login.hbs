@@ -45,38 +45,21 @@
 </header>
 <div class="container">
     <div class="content">
-        {{#with result}}
-        <div class="blog-title-box">
-            <h2 id="blog-title">{{ title }}</h2>
-        </div>
-        <div class="blog-body">
-          {{ content }}</div>
-        <div class="blog-orig">
-            <p>Post: {{ publish_time }}</p>
-            <p>Views: {{ views }}</p>
-            {{#if username}}
-            <p><a href="/admin/editblog/{{ aid }}">Edit blog</a></p>
-            {{/if}}
-        </div>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">User Name: </label>
+                <input type="text" class="form-control" id="username" placeholder="Enter UserName" name="username"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password"/>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            {{#with _csrf}}
+            <input type="hidden" name="{{parameterName}}"
+                   value="{{token}}" />
             {{/with}}
-        <div class="clearfix h10"></div>
-        <div class="addthis_sharing_toolbox"></div>
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-514ff8081944d017" async="async"></script>
-        <div class="clearfix h10"></div>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES * * */
-            var disqus_shortname = 'netroby';
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-        <div class="clearfix h10"></div>
+        </form>
     </div>
 </div>
 
