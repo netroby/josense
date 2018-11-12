@@ -1,4 +1,12 @@
 # Quickstart
+This guide show you how to quick run an josense web app
+
+## Prequirement
+
+* JDK 8.* or latest JDK
+* Postgresql DB , 10.* or latest
+
+## Run
 
 You can download prebuilt jar file to your local disk.
 
