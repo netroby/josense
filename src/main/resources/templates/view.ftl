@@ -45,13 +45,13 @@
     <div class="content">
         <#if result??>
         <div class="blog-title-box">
-            <h2 id="blog-title"><#if title??>${title}</#if></h2>
+            <h2 id="blog-title"><#if result.title??>${result.title}</#if></h2>
         </div>
         <div class="blog-body">
-          <#if content??>${content}</#if></div>
+          <#if result.content??>${result.content}</#if></div>
         <div class="blog-orig">
-            <p>Post: <#if publish_time??>${publish_time}</#if></p>
-            <p>Views: <#if views??>${views}</#if></p>
+            <p>Post: <#if result.publish_time??>${result.publish_time}</#if></p>
+            <p>Views: <#if result.views??>${result.views}</#if></p>
             <#if username??>
             <p><a href="/admin/editblog/<#if aid??>${aid}</#if>">Edit blog</a></p>
             </#if>
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-{{> donate}}
+<#include "donate.ftl">
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 </body>
 </html>
