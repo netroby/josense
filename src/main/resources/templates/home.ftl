@@ -38,10 +38,10 @@
         Welcome ${username}
         <a href="/admin">Dashboard</a>
         <a href="/admin/addblog">Add blog</a>
-        <a href="/admin/logout">Logout</a>
+        <a href="/logout">Logout</a>
     </div>
 <#else>
-    <div> <a href="/admin/login">Login</a> </div>
+    <div> <a href="/login">Login</a> </div>
 </#if>
     <form action="/search" method="get" style="margin-top:10px">
         <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">

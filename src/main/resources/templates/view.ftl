@@ -1,42 +1,40 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{#with result}}{{ title }}{{/with}} {{ site_name }} powered by josense!</title>
-    <meta name="description" content="{{site_description}}" />
-    <meta name="description" content="{{site_description}}" />
+    <title><#if title??>${title}</#if> - powered by josense!</title>
+    <meta name="description" content="<#if site_description??>${site_description}</#if>" />
     <link href="/rss" rel="alternate" type="application/rss+xml" title="Hard Coder" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/default.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-{{> ga }}
+    <#include "ga.ftl">
 </head>
 <body>
 <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
     <div class="container">
         <div class="">
-            <a href="/" class="navbar-brand">{{ site_name }}</a>
+            <a href="/" class="navbar-brand"><#if site_name??>${site_name}</#if></a>
         </div>
         <nav class="collapse navbar-collapse " role="navigation">
             <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-        </ul>
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    {{#if username }}
+                    <#if username??>
                     <div style="color:white">
-                        Welcome {{ username }}
+                        Welcome ${username}
                         <a href="/admin">Dashboard</a>
                         <a href="/admin/addblog">Add blog</a>
-                        <a href="/admin/logout">Logout</a>
+                        <a href="/logout">Logout</a>
                     </div>
-                    {{else}}
-                    <div> Welcome </div>
-                    {{/if}}
+                    <#else>
+                     <div> <a href="/login">Login</a> </div>
+                    </#if>
                     <form action="/search" method="get" style="margin-top:10px">
-                        <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
+                        <input name="keyword" value="<#if keyword??>${keyword}</#if>"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
                     </form>
                 </li>
             </ul>
@@ -45,20 +43,20 @@
 </header>
 <div class="container">
     <div class="content">
-        {{#with result}}
+        <#if result??>
         <div class="blog-title-box">
-            <h2 id="blog-title">{{ title }}</h2>
+            <h2 id="blog-title"><#if title??>${title}</#if></h2>
         </div>
         <div class="blog-body">
-          {{ content }}</div>
+          <#if content??>${content}</#if></div>
         <div class="blog-orig">
-            <p>Post: {{ publish_time }}</p>
-            <p>Views: {{ views }}</p>
-            {{#if username}}
-            <p><a href="/admin/editblog/{{ aid }}">Edit blog</a></p>
-            {{/if}}
+            <p>Post: <#if publish_time??>${publish_time}</#if></p>
+            <p>Views: <#if views??>${views}</#if></p>
+            <#if username??>
+            <p><a href="/admin/editblog/<#if aid??>${aid}</#if>">Edit blog</a></p>
+            </#if>
         </div>
-            {{/with}}
+            </#if>
         <div class="clearfix h10"></div>
         <div class="addthis_sharing_toolbox"></div>
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-514ff8081944d017" async="async"></script>

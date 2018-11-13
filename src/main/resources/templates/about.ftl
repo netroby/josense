@@ -1,21 +1,20 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{site_name }} - powered by josense!</title>
-    <meta name="description" content="{{site_description}}" />
+    <title><#if site_name??>${site_name}</#if> - powered by josense!</title>
+    <meta name="description" content="<#if site_description??>${site_description}</#if>" />
     <link href="/rss" rel="alternate" type="application/rss+xml" title="Hard Coder" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/default.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{> ga}}
+    <#include "ga.ftl">
 </head>
 <body>
 <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
 <div class="container">
     <div class="">
-        <a href="/" class="navbar-brand">{{site_name}}</a>
+        <a href="/" class="navbar-brand"><#if site_name??>${site_name}</#if></a>
     </div>
 <nav class="collapse navbar-collapse " role="navigation">
     <ul class="nav navbar-nav">
@@ -24,15 +23,15 @@
     </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-{{#if username }}
+<#if username??>
     <div style="color:white">
-        Welcome {{username }}
+        Welcome ${username}
         <a href="/admin/addblog">Add blog</a>
-        <a href="/admin/logout">Logout</a>
+        <a href="/logout">Logout</a>
     </div>
-{{else}}
+<#else>
     <div> Welcome </div>
-{{/if}}
+</#if>
     <form action="/search" method="get" style="margin-top:10px">
         <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
     </form>
@@ -52,6 +51,6 @@
         <div class="clearfix h10"></div>
     </div>
 </div>
-{{> donate}}
+<#include "donate.ftl">
 </body>
 </html>

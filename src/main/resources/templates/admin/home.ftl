@@ -30,16 +30,16 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    {{#if username }}
+                    <#if username??>
                         <div style="color:white">
-                            Welcome {{ username }}
+                            Welcome ${username}
                             <a href="/admin">Dashboard</a>
                             <a href="/admin/addblog">Add blog</a>
-                            <a href="/admin/logout">Logout</a>
+                            <a href="/logout">Logout</a>
                         </div>
-                    {{else}}
-                        <div> Welcome </div>
-                    {{/if}}
+                    <#else>
+                         <div> <a href="/login">Login</a> </div>
+                    </#if>
                     <form action="/search" method="get" style="margin-top:10px">
                         <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
                     </form>
@@ -51,18 +51,23 @@
 <div class="container">
     <div class="content">
         <ul class="blog-list">
+ <#if result??>
+     <#list result as r>
+                <li><a href="/view/${aid}">${r.title}</a> Views(${r.views})
+                    [<a href="/admin/editblog/${aid}">Edit</a>] [<a href="/admin/deleteblog/${aid}">Delete</a>]
+                </li>
+     </#list>
+ </#if>
 
-            {{#each result}}
-                <li><a href="/view/{{ aid }}">{{ title}}</a> Views({{ views}})
-                    [<a href="/admin/editblog/{{ aid }}">Edit</a>] [<a href="/admin/deleteblog/{{aid}}">Delete</a>]</li>
-            {{/each}}
         </ul>
         <div class="txtcenter">
 
+
             <div class="paginav">
-                <div style="float:left;width:150px;text-align:center"><a href="/?page={{ next_page }}">Next page</a></div>
-                <div style="float:left;width:150px;text-align:center"><a href="/?page={{ prev_page }}">Previous Page</a></div>
+                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if next_page??>${next_page}</#if>">Next page</a></div>
+                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if prev_page??>${prev_page}</#if>">Previous Page</a></div>
             </div>
+
 
         </div>
         <div class="txtcenter">
