@@ -10,10 +10,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 import java.time.Instant
 
@@ -49,16 +46,17 @@ class AdminController (@Autowired private val articleRepository: ArticleReposito
         logger.info("result {}", result)
         return ModelAndView("admin/edit")
     }
-    @RequestMapping("/admin/save-add")
+    @PostMapping("/admin/save-add")
     fun saveAdd(model: Model, articleAdd: ArticleAdd): ModelAndView {
         val tm = Instant.now().epochSecond
         val article = Article(title = articleAdd.title, content = articleAdd.content,
                 publishStatus = 1, publishTime = tm )
+        logger.info("article {}", article)
         this.articleRepository.save(article)
         model.addAttribute("message", "Success")
         return ModelAndView("message")
     }
-    @RequestMapping("/admin/save-edit")
+    @PostMapping("/admin/save-edit")
     fun saveEdit(model: Model, articleEdit: ArticleEdit): ModelAndView {
         val article = Article(aid = articleEdit.aid, title = articleEdit.title, content = articleEdit.content,
                 publishStatus = 1)

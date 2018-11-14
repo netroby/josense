@@ -15,9 +15,9 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter (){
 
     override fun configure(http: HttpSecurity) {
         http
-            //    .csrf().disable()
+                //.csrf().disable() // TODO  处理csrf
                 .authorizeRequests()
-                .antMatchers("/admin").authenticated()
+                .antMatchers("/admin/*").authenticated()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(

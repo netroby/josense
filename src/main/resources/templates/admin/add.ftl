@@ -52,13 +52,17 @@
 <body>
 <div class="container">
     <div style="float:right"><a href="/admin/files" target="_blank">Files &amp; Upload</a></div>
-    <form action="/admin/save-blog-add" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+    <form action="/admin/save-add" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
         <div class="form-group"><label>Title:</label><input name="title" class="form-control"></div>
         <div class="form-group">
             <label>Content:</label>
             <textarea name="content" class="form-control" style="height:500px"></textarea></div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
+                  <#if _csrf??>
+            <input type="hidden" name="${_csrf.parameterName}"
+                   value="${_csrf.token}" />
+                  </#if>
                 <button type="submit">Save</button>
             </div>
         </div>

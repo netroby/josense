@@ -1,10 +1,15 @@
-CREATE TABLE public.jo_article
+create table jo_article
 (
-    aid bigserial PRIMARY KEY NOT NULL,
-    title varchar(65536),
-    content text,
-    publish_status integer,
-    publish_time bigint,
-    views bigint
+  aid            bigserial not null
+    constraint jo_article_pkey
+    primary key,
+  title          varchar(65536),
+  content        text,
+  publish_status integer,
+  publish_time   bigint,
+  views          bigint
 );
-CREATE UNIQUE INDEX jo_article_aid_uindex ON public.jo_article (aid);
+
+alter table jo_article
+  owner to postgres;
+

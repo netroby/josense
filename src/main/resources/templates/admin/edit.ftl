@@ -51,7 +51,7 @@
 </head>
 <body>
 <div class="container">
-<form action="/admin/save-blog-edit" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+<form action="/admin/save-edit" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
     <div class="form-group"><label>Title:</label><input name="title" class="form-control" value="<#if title??>${title}</#if>"></div>
     <div class="form-group">
         <label>Content:</label>
@@ -59,6 +59,10 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <input type="hidden" name="aid" value="<#if aid??>${aid}</#if>">
+              <#if _csrf??>
+            <input type="hidden" name="${_csrf.parameterName}"
+                   value="${_csrf.token}" />
+              </#if>
             <button type="submit">Save</button>
         </div>
     </div>

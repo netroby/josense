@@ -10,7 +10,7 @@ import javax.persistence.*
 @Data
 @Table(name="jo_article")
 data class Article  (
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
     var aid: Long = 0,
     var title: String = "",
     var content: String = "",
