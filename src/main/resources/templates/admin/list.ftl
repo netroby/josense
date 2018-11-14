@@ -30,16 +30,16 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    {{#if username }}
-                    <div style="color:white">
-                        Welcome {{ username }}
-                        <a href="/admin">Dashboard</a>
-                        <a href="/admin/addblog">Add blog</a>
-                        <a href="/admin/logout">Logout</a>
-                    </div>
-                    {{else}}
-                    <div> Welcome </div>
-                    {{/if}}
+                    <#if username??>
+                        <div style="color:white">
+                            Welcome ${username}
+                            <a href="/admin">Dashboard</a>
+                            <a href="/admin/addblog">Add blog</a>
+                            <a href="/logout">Logout</a>
+                        </div>
+                    <#else>
+                         <div> <a href="/login">Login</a> </div>
+                    </#if>
                     <form action="/search" method="get" style="margin-top:10px">
                         <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
                     </form>
@@ -51,18 +51,23 @@
 <div class="container">
     <div class="content">
         <ul class="blog-list">
+ <#if result??>
+     <#list result as r>
+                <li><a href="/view/${r.aid}">${r.title}</a> Views(${r.views})
+                    [<a href="/admin/editblog/${r.aid}">Edit</a>] [<a href="/admin/deleteblog/${r.aid}">Delete</a>]
+                </li>
+     </#list>
+ </#if>
 
-            {{#each result}}
-                <li><a href=\"/view/{{ aid }}">{{ title}}</a> Views({{ views}})
-                    [<a href=\"/admin/editblog/{{ aid }}\">Edit</a>] [<a href=\"/admin/deleteblog/{{aid}}\">Delete</a>]</li>
-            {{/each}}
         </ul>
         <div class="txtcenter">
 
+
             <div class="paginav">
-                <div style="float:left;width:150px;text-align:center"><a href="/?page={{ next_page }}">Next page</a></div>
-                <div style="float:left;width:150px;text-align:center"><a href="/?page={{ prev_page }}">Previous Page</a></div>
-                </div>
+                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if next_page??>${next_page}</#if>">Next page</a></div>
+                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if prev_page??>${prev_page}</#if>">Previous Page</a></div>
+            </div>
+
 
         </div>
         <div class="txtcenter">
@@ -82,7 +87,7 @@
 </div>
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 

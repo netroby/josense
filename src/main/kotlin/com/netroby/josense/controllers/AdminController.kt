@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 
@@ -36,5 +37,9 @@ class AdminController (@Autowired private val articleRepository: ArticleReposito
     @GetMapping("/admin/add")
     fun add(): String {
         return "admin/add"
+    }
+    @RequestMapping("/admin/save-add")
+    fun saveAdd(): String {
+        return "message"
     }
 }
