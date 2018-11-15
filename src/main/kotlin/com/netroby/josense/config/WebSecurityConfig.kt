@@ -16,10 +16,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter (){
     override fun configure(http: HttpSecurity) {
         http
                 //.csrf().disable() // TODO  处理csrf
+                //.anonymous().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/*").authenticated()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
@@ -27,6 +25,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter (){
                         "/view/*",
                         "/rss",
                         "/favicon.ico",
+                        "/assets/**",
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
@@ -34,6 +33,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter (){
                         "/swagger-resources/**",
                         "/*/api-docs"
                 ).permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")

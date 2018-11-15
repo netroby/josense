@@ -52,13 +52,13 @@
 <body>
 <div class="container">
 <form action="/admin/save-edit" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
-    <div class="form-group"><label>Title:</label><input name="title" class="form-control" value="<#if title??>${title}</#if>"></div>
+    <div class="form-group"><label>Title:</label><input name="title" class="form-control" value="<#if result.title??>${result.title}</#if>"></div>
     <div class="form-group">
         <label>Content:</label>
-        <textarea name="content" class="form-control" style="height:500px"><#if content??>${content?no_esc}</#if></textarea></div>
+        <textarea name="content" class="form-control" style="height:500px"><#if result.content??>${result.content}</#if></textarea></div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <input type="hidden" name="aid" value="<#if aid??>${aid}</#if>">
+            <input type="hidden" name="aid" value="<#if result.aid??>${result.aid}</#if>">
               <#if _csrf??>
             <input type="hidden" name="${_csrf.parameterName}"
                    value="${_csrf.token}" />

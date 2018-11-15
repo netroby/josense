@@ -54,7 +54,7 @@
  <#if result??>
      <#list result as r>
                 <li><a href="/view/${r.aid}">${r.title}</a> Views(${r.views})
-                    [<a href="/admin/editblog/${r.aid}">Edit</a>] [<a href="/admin/deleteblog/${r.aid}">Delete</a>]
+                    [<a href="/admin/edit/${r.aid}">Edit</a>] [<a href="/admin/deleteblog/${r.aid}">Delete</a>]
                 </li>
      </#list>
  </#if>

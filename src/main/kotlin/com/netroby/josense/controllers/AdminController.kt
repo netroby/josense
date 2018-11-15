@@ -1,6 +1,7 @@
 package com.netroby.josense.controllers
 
 import com.netroby.josense.repository.ArticleRepository
+import com.netroby.josense.service.AuthAdapterService
 import com.netroby.josense.vo.Article
 import com.netroby.josense.vo.ArticleAdd
 import com.netroby.josense.vo.ArticleEdit
@@ -15,7 +16,10 @@ import org.springframework.web.servlet.ModelAndView
 import java.time.Instant
 
 @Controller
-class AdminController (@Autowired private val articleRepository: ArticleRepository){
+class AdminController (
+        @Autowired private val articleRepository: ArticleRepository,
+        @Autowired private val authAdapterService: AuthAdapterService
+        ){
     private val logger = LoggerFactory.getLogger("admin")
     @GetMapping("/admin")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): ModelAndView {
@@ -23,6 +27,8 @@ class AdminController (@Autowired private val articleRepository: ArticleReposito
         val pageable = PageRequest.of(page, 15, sort)
         val result =  articleRepository.findAll(pageable)
         model.addAttribute("result", result.content)
+        model.addAttribute("username", authAdapterService.getUserName())
+        model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         logger.info("Hello world")
         logger.info("result {}", result.content)
         return ModelAndView("admin/home")
