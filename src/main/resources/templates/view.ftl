@@ -23,7 +23,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <#if username??>
+                    <#if isAuthenticated??>
                     <div style="color:white">
                         Welcome ${username}
                         <a href="/admin">Dashboard</a>

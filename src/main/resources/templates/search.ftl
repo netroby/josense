@@ -32,7 +32,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <#if username??>
+                    <#if username?? >
                     <div style="color:white">
                         Welcome ${username}
                         <a href="/admin">Dashboard</a>

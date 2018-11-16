@@ -10,13 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
-@EnableWebSecurity(debug = true)
 class WebSecurityConfig : WebSecurityConfigurerAdapter (){
 
     override fun configure(http: HttpSecurity) {
         http
                 //.csrf().disable() // TODO  处理csrf
-                //.anonymous().disable()
                 .authorizeRequests()
                 .antMatchers(
                         HttpMethod.GET,
@@ -31,10 +29,11 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter (){
                         "/**/*.js",
                         "/webjars/**",
                         "/swagger-resources/**",
-                        "/*/api-docs"
+                        "/*/api-docs",
+                        "/login",
+                        "/logout"
                 ).permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
