@@ -20,6 +20,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter (){
                         HttpMethod.GET,
                         "/",
                         "/*.html",
+                        "/about",
                         "/view/*",
                         "/rss",
                         "/favicon.ico",
