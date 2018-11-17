@@ -34,7 +34,7 @@
                         <div style="color:white">
                             Welcome ${username}
                             <a href="/admin">Dashboard</a>
-                            <a href="/admin/addblog">Add blog</a>
+                            <a href="/admin/add">Add blog</a>
                             <a href="/logout">Logout</a>
                         </div>
                     <#else>

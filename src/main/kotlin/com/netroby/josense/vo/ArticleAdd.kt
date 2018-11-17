@@ -13,6 +13,5 @@ data class ArticleAdd  (
     var title: String = "",
     var content: String = "",
     var publishStatus: Long = 1,
-    var publishTime: Long = 0,
     var views: Long = 0
 )

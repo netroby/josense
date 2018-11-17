@@ -54,9 +54,8 @@ class AdminController (
     }
     @PostMapping("/admin/save-add")
     fun saveAdd(model: Model, articleAdd: ArticleAdd): ModelAndView {
-        val tm = Instant.now().epochSecond
         val article = Article(title = articleAdd.title, content = articleAdd.content,
-                publishStatus = 1, publishTime = tm )
+                publishStatus = 1 )
         logger.info("article {}", article)
         this.articleRepository.save(article)
         model.addAttribute("message", "Success")
@@ -64,8 +63,7 @@ class AdminController (
     }
     @PostMapping("/admin/save-edit")
     fun saveEdit(model: Model, articleEdit: ArticleEdit): ModelAndView {
-        val article = Article(aid = articleEdit.aid, title = articleEdit.title, content = articleEdit.content,
-                publishStatus = 1)
+        val article = Article(aid = articleEdit.aid, title = articleEdit.title, content = articleEdit.content)
         this.articleRepository.save(article)
         model.addAttribute("message", "Success")
         return ModelAndView("message")
