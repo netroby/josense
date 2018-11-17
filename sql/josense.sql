@@ -1,5 +1,5 @@
 CREATE TABLE `jo_article` (
-  `aid` bigint(20) NOT NULL DEFAULT 0,
+  `aid` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8 DEFAULT '',
   `content` longtext CHARACTER SET utf8 DEFAULT NULL,
   `publish_time` bigint(20) DEFAULT 0,
@@ -7,4 +7,4 @@ CREATE TABLE `jo_article` (
   `views` bigint(20) DEFAULT 0,
   PRIMARY KEY (`aid`),
   FULLTEXT KEY `content` (`title`,`content`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
