@@ -40,6 +40,21 @@ class HomeController (
         logger.info("result {}", result.content)
         return ModelAndView("home")
     }
+    @GetMapping("/search")
+    fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int, @RequestParam(value="keyword", defaultValue = "")): ModelAndView {
+        val sort = Sort(Sort.Direction.DESC, "aid")
+        val pageable = PageRequest.of(page, 15, sort)
+        val result =  articleRepository.findByContentContaining(pageable, keyword)
+        model.addAttribute("result", result.content)
+        val role = SimpleGrantedAuthority("ROLE_ADMIN");
+        logger.info("auth info {}", JSON.toJSON(authAdapterService.getAuthentication()?.authorities))
+        logger.info("{}", authAdapterService.getAuthentication()?.authorities?.contains(role))
+        model.addAttribute("username", authAdapterService.getUserName())
+        model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
+        logger.info("Hello world")
+        logger.info("result {}", result.content)
+        return ModelAndView("search")
+    }
     @GetMapping("/view/{id}")
     fun view(model: Model, @PathVariable("id") id: Int): ModelAndView {
         val result = articleRepository.findById(id.toLong());
