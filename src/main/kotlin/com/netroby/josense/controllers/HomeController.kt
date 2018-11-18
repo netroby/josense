@@ -41,7 +41,7 @@ class HomeController (
         return ModelAndView("home")
     }
     @GetMapping("/search")
-    fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int, @RequestParam(value="keyword", defaultValue = "")): ModelAndView {
+    fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int, @RequestParam(value="keyword", defaultValue = "") keyword: String): ModelAndView {
         val sort = Sort(Sort.Direction.DESC, "aid")
         val pageable = PageRequest.of(page, 15, sort)
         val result =  articleRepository.findByContentContaining(pageable, keyword)
