@@ -40,6 +40,12 @@ class HomeController (
         logger.info("result {}", result.content)
         return ModelAndView("home")
     }
+    @GetMapping("/about")
+    fun about(model: Model): ModelAndView {
+        model.addAttribute("username", authAdapterService.getUserName())
+        model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
+        return ModelAndView("about")
+    }
     @GetMapping("/search")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int, @RequestParam(value="keyword", defaultValue = "") keyword: String): ModelAndView {
         val sort = Sort(Sort.Direction.DESC, "aid")

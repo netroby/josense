@@ -8,8 +8,7 @@
     <#include "ga.ftl">
 </head>
 <body>
-<div class="back-to-home"><a href="/">Home</a></div>
-<div class="clearfix"></div>
+<#include "header.ftl">
 <div class="container">
     <div class="content">
         <div class="txtcenter">

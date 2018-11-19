@@ -11,35 +11,7 @@
     <#include "ga.ftl">
 </head>
 <body>
-<header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
-<div class="container">
-    <div class="">
-        <a href="/" class="navbar-brand"><#if site_name??>${site_name}</#if></a>
-    </div>
-<nav class="collapse navbar-collapse " role="navigation">
-    <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-        <li class="active"><a href="/about">About</a></li>
-    </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-<#if isAuthenticated??>
-    <div style="color:white">
-        Welcome ${username}
-        <a href="/admin/add">Add blog</a>
-        <a href="/logout">Logout</a>
-    </div>
-<#else>
-    <div> Welcome </div>
-</#if>
-    <form action="/search" method="get" style="margin-top:10px">
-        <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
-    </form>
-</li>
-</ul>
-</nav>
-</div>
-</header>
+<#include "header.ftl">
 <div class="container">
     <div class="content">
         <h2>About me</h2>

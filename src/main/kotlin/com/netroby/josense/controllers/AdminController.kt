@@ -42,13 +42,17 @@ class AdminController (
         return "admin/files"
     }
     @GetMapping("/admin/add")
-    fun add(): String {
-        return "admin/add"
+    fun add(model: Model): ModelAndView {
+        model.addAttribute("username", authAdapterService.getUserName())
+        model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
+        return ModelAndView("admin/add")
     }
     @GetMapping("/admin/edit/{id}")
     fun edit(model: Model, @PathVariable("id") id: Int): ModelAndView {
         val result = articleRepository.findById(id.toLong());
         model.addAttribute("result", result.get())
+        model.addAttribute("username", authAdapterService.getUserName())
+        model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         logger.info("result {}", result)
         return ModelAndView("admin/edit")
     }
