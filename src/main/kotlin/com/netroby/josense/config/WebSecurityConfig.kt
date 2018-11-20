@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 @Configuration
@@ -15,6 +16,7 @@ class AccountConfig {
     var password: String = ""
 }
 @Configuration
+@EnableWebSecurity(debug=true)
 class WebSecurityConfig(@Autowired val accountConfig: AccountConfig) : WebSecurityConfigurerAdapter() {
         override fun configure(http: HttpSecurity) {
         http
@@ -23,6 +25,7 @@ class WebSecurityConfig(@Autowired val accountConfig: AccountConfig) : WebSecuri
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
+                        "/assets/**",
                         "/*.html",
                         "/about",
                         "/view/*",
