@@ -1,3 +1,5 @@
+CREATE SCHEMA `josense` DEFAULT CHARACTER SET utf8mb4 ;
+use josense;
 CREATE TABLE `jo_article` (
   `aid` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8 DEFAULT '',

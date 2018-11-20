@@ -1,6 +1,8 @@
 package com.netroby.josense.config
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -8,11 +10,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-
 @Configuration
-class WebSecurityConfig : WebSecurityConfigurerAdapter (){
-
-    override fun configure(http: HttpSecurity) {
+@ConfigurationProperties(prefix = "account")
+class AccountConfig {
+    var username: String = ""
+    var password: String = ""
+}
+@Configuration
+class WebSecurityConfig(@Autowired val accountConfig: AccountConfig) : WebSecurityConfigurerAdapter() {
+        override fun configure(http: HttpSecurity) {
         http
                 //.csrf().disable() // TODO  处理csrf
                 .authorizeRequests()
@@ -47,8 +53,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter (){
     override fun configure(auth: AuthenticationManagerBuilder) {
         val passwordEncoder = BCryptPasswordEncoder() // 定义默认的密码加密器为bcrypt
         auth.inMemoryAuthentication().passwordEncoder(passwordEncoder)
-                .withUser("user").password(passwordEncoder.encode("user")).roles("USER") // 创建一个账号，密码用bcrypt加密
-                .and()
-                .withUser("admin").password(passwordEncoder.encode("admin")).roles("ADMIN")
+              //  .withUser("user").password(passwordEncoder.encode("user")).roles("USER") // 创建一个账号，密码用bcrypt加密
+                //.and()
+                .withUser(accountConfig.username).password(passwordEncoder.encode(accountConfig.password)).roles("ADMIN")
     }
 }
