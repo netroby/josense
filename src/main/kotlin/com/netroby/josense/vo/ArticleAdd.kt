@@ -1,12 +1,8 @@
 package com.netroby.josense.vo
 
-import lombok.Data
-import lombok.ToString
 import javax.persistence.*
 
 @Entity
-@ToString
-@Data
 @Table(name="jo_article")
 data class ArticleAdd  (
     @Id @GeneratedValue(strategy = GenerationType.AUTO)

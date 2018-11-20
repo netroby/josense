@@ -1,6 +1,6 @@
 package com.netroby.josense.controllers
 
-import com.alibaba.fastjson.JSON
+
 import com.netroby.josense.repository.ArticleRepository
 import com.netroby.josense.service.AuthAdapterService
 import org.slf4j.LoggerFactory
@@ -32,7 +32,7 @@ class HomeController (
         val result =  articleRepository.findAll(pageable)
         model.addAttribute("result", result.content)
         val role = SimpleGrantedAuthority("ROLE_ADMIN");
-        logger.info("auth info {}", JSON.toJSON(authAdapterService.getAuthentication()?.authorities))
+        logger.info("auth info {}", authAdapterService.getAuthentication()?.authorities)
         logger.info("{}", authAdapterService.getAuthentication()?.authorities?.contains(role))
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
@@ -53,7 +53,7 @@ class HomeController (
         val result =  articleRepository.findByContentContaining(pageable, keyword)
         model.addAttribute("result", result.content)
         val role = SimpleGrantedAuthority("ROLE_ADMIN");
-        logger.info("auth info {}", JSON.toJSON(authAdapterService.getAuthentication()?.authorities))
+        logger.info("auth info {}", authAdapterService.getAuthentication()?.authorities)
         logger.info("{}", authAdapterService.getAuthentication()?.authorities?.contains(role))
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())

@@ -1,7 +1,6 @@
 package com.netroby.josense.service.impl
 
 import com.netroby.josense.service.AuthAdapterService
-import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder

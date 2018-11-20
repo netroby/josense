@@ -1,18 +1,9 @@
 package com.netroby.josense.vo
 
-import lombok.Data
-import lombok.ToString
-import java.io.Serializable
-import java.text.SimpleDateFormat
 import java.time.Instant
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.persistence.*
 
 @Entity
-@ToString
-@Data
 @Table(name="jo_article")
 data class Article  (
         @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
