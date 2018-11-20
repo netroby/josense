@@ -50,7 +50,6 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('org.postgresql:postgresql')
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.mariadb.jdbc:mariadb-java-client:2.3.0')
