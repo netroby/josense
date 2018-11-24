@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest
 
 @Controller
 class HandleErrorController  : ErrorController {
-    private val logger = LoggerFactory.getLogger("home")
     @GetMapping("/error")
     fun home(model: Model, req: HttpServletRequest): ModelAndView {
         val e = req.getAttribute("javax.servlet.error.exception") as Exception
