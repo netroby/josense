@@ -9,14 +9,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.stereotype.Component
+
 @Configuration
 @ConfigurationProperties(prefix = "account")
+@Component
 class AccountConfig {
     var username: String = ""
     var password: String = ""
 }
 @Configuration
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity(debug=false)
 class WebSecurityConfig(@Autowired val accountConfig: AccountConfig) : WebSecurityConfigurerAdapter() {
         override fun configure(http: HttpSecurity) {
         http

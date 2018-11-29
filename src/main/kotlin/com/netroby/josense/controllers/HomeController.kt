@@ -50,7 +50,8 @@ class HomeController (
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int, @RequestParam(value="keyword", defaultValue = "") keyword: String): ModelAndView {
         val sort = Sort(Sort.Direction.DESC, "aid")
         val pageable = PageRequest.of(page, 15, sort)
-        val result =  articleRepository.findByContentContaining(pageable, keyword)
+        logger.info("Search by keyword {}", keyword)
+        val result =  articleRepository.findByContentContainingOrTitleContaining(pageable, "%$keyword%", "%$keyword%")
         model.addAttribute("result", result.content)
         val role = SimpleGrantedAuthority("ROLE_ADMIN");
         logger.info("auth info {}", authAdapterService.getAuthentication()?.authorities)

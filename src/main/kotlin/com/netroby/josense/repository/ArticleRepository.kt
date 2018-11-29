@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.PagingAndSortingRepository
 
 interface ArticleRepository : PagingAndSortingRepository<Article, Long> {
-    fun  findByContentContaining(pageable: Pageable, keyword: String): Page<List<Article>>
+    fun  findByContentContainingOrTitleContaining(pageable: Pageable, keyword: String, keyword2: String): Page<List<Article>>
 }

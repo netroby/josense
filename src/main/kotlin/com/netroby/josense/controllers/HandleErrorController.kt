@@ -1,7 +1,6 @@
 package com.netroby.josense.controllers
 
 
-import org.slf4j.LoggerFactory
 import org.springframework.boot.web.servlet.error.ErrorController
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
