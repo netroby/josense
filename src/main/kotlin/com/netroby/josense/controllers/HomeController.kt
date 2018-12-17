@@ -3,6 +3,7 @@ package com.netroby.josense.controllers
 
 import com.netroby.josense.repository.ArticleRepository
 import com.netroby.josense.service.AuthAdapterService
+import com.netroby.josense.vo.Article
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
@@ -11,13 +12,20 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import com.rometools.rome.io.SyndFeedOutput
+import com.rometools.rome.feed.synd.SyndContentImpl
+import com.rometools.rome.feed.synd.SyndContent
+import com.rometools.rome.feed.synd.SyndEntryImpl
+import com.rometools.rome.feed.synd.SyndEntry
+import com.rometools.rome.feed.synd.SyndFeedImpl
+import com.rometools.rome.feed.synd.SyndFeed
+import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.*
+import java.util.*
+
 
 @Controller
 class HomeController (
@@ -40,6 +48,39 @@ class HomeController (
         logger.info("result {}", result.content)
         return ModelAndView("home")
     }
+
+
+    @GetMapping("/rss",  produces=["application/xml"])
+    @ResponseBody
+    fun rss(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): String {
+        val sort = Sort(Sort.Direction.DESC, "aid")
+        val pageable = PageRequest.of(page, 15, sort)
+        val result =  articleRepository.findAll(pageable)
+        model.addAttribute("result", result.content)
+        val feed = SyndFeedImpl()
+        feed.feedType = "atom_1.0"
+
+        val entries =  ArrayList<SyndEntry>();
+        for (blog : Article in result.content ) {
+
+            val entry =  SyndEntryImpl()
+            entry.title = blog.title
+
+            val content = SyndContentImpl()
+            content.value = blog.content
+
+            entry.description = content
+            entry.publishedDate =  Date(blog.publishTime *  1000L)
+            //TODO: replace with real web site domain
+            entry.uri = "https://www.netroby.com/view/" + blog.aid
+            entries.add(entry)
+        }
+        // 收集所有的文章，设置为Feed
+        feed.entries = entries
+
+        return SyndFeedOutput().outputString(feed)
+    }
+
     @GetMapping("/about")
     fun about(model: Model): ModelAndView {
         model.addAttribute("username", authAdapterService.getUserName())
