@@ -22,6 +22,7 @@ import com.rometools.rome.feed.synd.SyndEntryImpl
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeedImpl
 import com.rometools.rome.feed.synd.SyndFeed
+import org.jsoup.Jsoup
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -67,7 +68,7 @@ class HomeController (
             entry.title = blog.title
 
             val content = SyndContentImpl()
-            content.value = blog.content
+            content.value = Jsoup.parse(blog.content).text();
 
             entry.description = content
             entry.publishedDate =  Date(blog.publishTime *  1000L)
