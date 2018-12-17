@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><#if title??>${title}</#if> <#if site_name??>${site_name}</#if> powered by josense!</title>
-    <meta name="description" content="<#if site_description??>${site_description}</#if>" />
+    <title><#if title??>${title}</#if> <#if siteName??>${siteName}</#if> powered by josense!</title>
+    <meta name="description" content="<#if siteDescription??>${siteDescription}</#if>" />
     <link href="/rss" rel="alternate" type="application/rss+xml" title="Hard Coder" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/default.css">

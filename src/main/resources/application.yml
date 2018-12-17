@@ -15,3 +15,8 @@ spring:
 account:
   username: admin
   password: admin@123
+
+josense:
+  site:
+      name: HardCoder
+      description: "Linux, opensource, golang,java,spring boot"

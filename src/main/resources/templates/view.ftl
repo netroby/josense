@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><#if title??>${title}</#if> - powered by josense!</title>
-    <meta name="description" content="<#if site_description??>${site_description}</#if>" />
+    <title><#if result.title??>${result.title}</#if> - <#if siteName??>${siteName}</#if> - powered by josense!</title>
+    <meta name="description" content="<#if siteDescription??>${siteDescription}</#if>" />
     <link href="/rss" rel="alternate" type="application/rss+xml" title="Hard Coder" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/default.css">
@@ -25,7 +25,7 @@
             <p>Post: <#if result.publish_time??>${result.publish_time}</#if></p>
             <p>Views: <#if result.views??>${result.views}</#if></p>
             <#if username??>
-            <p><a href="/admin/editblog/<#if aid??>${aid}</#if>">Edit blog</a></p>
+            <p><a href="/admin/edit/<#if result.aid??>${result.aid}</#if>">Edit blog</a></p>
             </#if>
         </div>
             </#if>

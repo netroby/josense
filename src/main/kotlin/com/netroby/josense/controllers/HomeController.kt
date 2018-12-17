@@ -1,8 +1,10 @@
 package com.netroby.josense.controllers
 
 
+import com.netroby.josense.config.JosenseConfig
 import com.netroby.josense.repository.ArticleRepository
 import com.netroby.josense.service.AuthAdapterService
+import com.netroby.josense.service.PrepareModelService
 import com.netroby.josense.vo.Article
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,6 +25,7 @@ import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeedImpl
 import com.rometools.rome.feed.synd.SyndFeed
 import org.jsoup.Jsoup
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -31,11 +34,14 @@ import java.util.*
 @Controller
 class HomeController (
         @Autowired private val articleRepository: ArticleRepository,
-        @Autowired private val authAdapterService: AuthAdapterService
+        @Autowired private val prepareModelService: PrepareModelService,
+        @Autowired private val authAdapterService: AuthAdapterService,
+        @Autowired private val josenseConfig: JosenseConfig
 ){
     private val logger = LoggerFactory.getLogger("home")
     @GetMapping("/")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): ModelAndView {
+        model.addAllAttributes(prepareModelService.getModel())
         val sort = Sort(Sort.Direction.DESC, "aid")
         val pageable = PageRequest.of(page, 15, sort)
         val result =  articleRepository.findAll(pageable)
@@ -54,12 +60,15 @@ class HomeController (
     @GetMapping("/rss",  produces=["application/xml"])
     @ResponseBody
     fun rss(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): String {
+        model.addAllAttributes(prepareModelService.getModel())
         val sort = Sort(Sort.Direction.DESC, "aid")
         val pageable = PageRequest.of(page, 15, sort)
         val result =  articleRepository.findAll(pageable)
         model.addAttribute("result", result.content)
         val feed = SyndFeedImpl()
         feed.feedType = "atom_1.0"
+        feed.title = josenseConfig.site["name"]?:""
+        feed.description = josenseConfig.site["description"]?:""
 
         val entries =  ArrayList<SyndEntry>();
         for (blog : Article in result.content ) {
@@ -84,12 +93,14 @@ class HomeController (
 
     @GetMapping("/about")
     fun about(model: Model): ModelAndView {
+        model.addAllAttributes(prepareModelService.getModel())
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         return ModelAndView("about")
     }
     @GetMapping("/search")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int, @RequestParam(value="keyword", defaultValue = "") keyword: String): ModelAndView {
+        model.addAllAttributes(prepareModelService.getModel())
         val sort = Sort(Sort.Direction.DESC, "aid")
         val pageable = PageRequest.of(page, 15, sort)
         logger.info("Search by keyword {}", keyword)
@@ -106,6 +117,7 @@ class HomeController (
     }
     @GetMapping("/view/{id}")
     fun view(model: Model, @PathVariable("id") id: Int): ModelAndView {
+        model.addAllAttributes(prepareModelService.getModel())
         val result = articleRepository.findById(id.toLong());
         model.addAttribute("result", result.get())
         model.addAttribute("username", authAdapterService.getUserName())

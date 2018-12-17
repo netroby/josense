@@ -2,7 +2,7 @@
 <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
     <div class="container">
         <div class="">
-            <a href="/" class="navbar-brand"><#if site_name??>{{site_name}}</#if></a>
+            <a href="/" class="navbar-brand"><#if siteName??>${siteName}</#if></a>
         </div>
         <nav class="collapse navbar-collapse " role="navigation">
             <ul class="nav navbar-nav">
