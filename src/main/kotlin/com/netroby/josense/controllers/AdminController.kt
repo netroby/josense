@@ -37,8 +37,7 @@ class AdminController (
             prevPage = 0;
         }
         model.addAttribute("prevPage", prevPage)
-        logger.info("Hello world")
-        logger.info("result {}", result.content)
+        logger.info("result {}", result.content.toString().substring(0..220))
         return ModelAndView("admin/home")
     }
     @GetMapping("/admin/list")
@@ -60,14 +59,14 @@ class AdminController (
         val result = articleRepository.findById(id.toLong());
         model.addAttribute("result", result.get())
         model.addAllAttributes(prepareModelService.getModel())
-        logger.info("result {}", result)
+        logger.info("result {}", result.toString().substring(0..220))
         return ModelAndView("admin/edit")
     }
     @PostMapping("/admin/save-add")
     fun saveAdd(model: Model, articleAdd: ArticleAdd): ModelAndView {
         val article = Article(title = articleAdd.title, content = articleAdd.content,
                 publishStatus = 1 )
-        logger.info("article {}", article)
+        logger.info("article {}", article.toString().substring(0..220))
         this.articleRepository.save(article)
         model.addAttribute("message", "Success")
         model.addAllAttributes(prepareModelService.getModel())

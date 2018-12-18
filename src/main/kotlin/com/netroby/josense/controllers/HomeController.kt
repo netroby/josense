@@ -6,31 +6,27 @@ import com.netroby.josense.repository.ArticleRepository
 import com.netroby.josense.service.AuthAdapterService
 import com.netroby.josense.service.PrepareModelService
 import com.netroby.josense.vo.Article
+import com.rometools.rome.feed.synd.SyndContentImpl
+import com.rometools.rome.feed.synd.SyndEntry
+import com.rometools.rome.feed.synd.SyndEntryImpl
+import com.rometools.rome.feed.synd.SyndFeedImpl
+import com.rometools.rome.io.SyndFeedOutput
+import org.jsoup.Jsoup
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.http.HttpStatus
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.servlet.ModelAndView
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
-import com.rometools.rome.io.SyndFeedOutput
-import com.rometools.rome.feed.synd.SyndContentImpl
-import com.rometools.rome.feed.synd.SyndContent
-import com.rometools.rome.feed.synd.SyndEntryImpl
-import com.rometools.rome.feed.synd.SyndEntry
-import com.rometools.rome.feed.synd.SyndFeedImpl
-import com.rometools.rome.feed.synd.SyndFeed
-import org.jsoup.Jsoup
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import org.springframework.web.servlet.ModelAndView
 import java.util.*
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 
 @Controller
@@ -48,9 +44,7 @@ class HomeController(
         val pageable = PageRequest.of(page, 15, sort)
         val result = articleRepository.findAll(pageable)
         model.addAttribute("result", result.content)
-        val role = SimpleGrantedAuthority("ROLE_ADMIN");
-        logger.info("auth info {}", authAdapterService.getAuthentication()?.authorities)
-        logger.info("{}", authAdapterService.getAuthentication()?.authorities?.contains(role))
+        val role = SimpleGrantedAuthority("ROLE_ADMIN")
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         model.addAttribute("nextPage", page+1)
@@ -59,8 +53,6 @@ class HomeController(
             prevPage = 0;
         }
         model.addAttribute("prevPage", prevPage)
-        logger.info("Hello world")
-        logger.info("result {}", result.content)
         return ModelAndView("home")
     }
 
@@ -115,20 +107,15 @@ class HomeController(
         logger.info("Search by keyword {}", keyword)
         val result = articleRepository.findByContentContainingOrTitleContaining(pageable, "%$keyword%", "%$keyword%")
         model.addAttribute("result", result.content)
-        val role = SimpleGrantedAuthority("ROLE_ADMIN");
-        logger.info("auth info {}", authAdapterService.getAuthentication()?.authorities)
-        logger.info("{}", authAdapterService.getAuthentication()?.authorities?.contains(role))
+        val role = SimpleGrantedAuthority("ROLE_ADMIN")
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         model.addAttribute("nextPage", page+1)
-        var prevPage = page - 1;
+        var prevPage = page - 1
         if (prevPage < 0) {
-            prevPage = 0;
+            prevPage = 0
         }
         model.addAttribute("prevPage", prevPage)
-
-        logger.info("Hello world")
-        logger.info("result {}", result.content)
         return ModelAndView("search")
     }
 
@@ -136,14 +123,13 @@ class HomeController(
     fun view(model: Model, @PathVariable("id") id: Int): ModelAndView {
         model.addAllAttributes(prepareModelService.getModel())
         val result = articleRepository.findById(id.toLong()) ?: null ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
-        logger.info(result.toString())
+        logger.info(result.toString().substring(0..220))
         val sArticle = result.get()
         sArticle.views = sArticle.views + 1
         articleRepository.save(sArticle)
         model.addAttribute("result", result.get())
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
-        logger.info("result {}", result)
         return ModelAndView("view")
     }
 
