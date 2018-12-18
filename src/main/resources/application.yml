@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: dev
+  freemarker:
+    template-loader-path: file:./templates/,classpath:templates/
   datasource:
     url: jdbc:mariadb://127.0.0.1:3306/josense
     username: root
@@ -20,3 +22,4 @@ josense:
   site:
       name: HardCoder
       description: "Linux, opensource, golang,java,spring boot"
+
