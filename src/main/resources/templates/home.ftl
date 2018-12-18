@@ -27,7 +27,7 @@
         <ul class="blog-list">
             <#if result??>
             <#list result as r>
-                <li><a href="/view/${r.aid}">${r.title}</a> Views(${r.views})</li>
+                <li><a href="/view/${r.aid?long?c}">${r.title}</a> Views(${r.views})</li>
             </#list>
             </#if>
         </ul>

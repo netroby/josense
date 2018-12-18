@@ -25,8 +25,8 @@
         <ul class="blog-list">
  <#if result??>
      <#list result as r>
-                <li><a href="/view/${r.aid}">${r.title}</a> Views(${r.views})
-                    [<a href="/admin/edit/${r.aid}">Edit</a>] [<a href="/admin/deleteblog/${r.aid}">Delete</a>]
+                <li><a href="/view/${r.aid?long?c}">${r.title}</a> Views(${r.views})
+                    [<a href="/admin/edit/${r.aid?long?c}">Edit</a>] [<a href="/admin/deleteblog/${r.aid?long?c}">Delete</a>]
                 </li>
      </#list>
  </#if>
