@@ -34,3 +34,29 @@ docker run -d --restart=always -p 8080:8080 \
     
 
 ```
+
+
+## nginx reverse proxy configure
+
+```bash
+server {
+    listen 18080;
+    server_name www.netroby.com;
+    if ($host != "www.netroby.com") {
+        return 444;
+    }
+    location / {
+        proxy_set_header Host www.netroby.com; # Must have
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # Must have
+        proxy_redirect http://www.netroby.com:18080 https://www.netroby.com/; # Must have
+        proxy_redirect http://josense:8080 https://www.netroby.com/; # Must have
+        proxy_pass http://josense:8080;
+    }
+}
+server {
+    listen 18080;
+    server_name netroby.com;
+    return 301 http://www.netroby.com$request_uri;
+}
+
+```
