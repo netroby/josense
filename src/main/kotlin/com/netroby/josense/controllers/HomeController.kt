@@ -122,10 +122,7 @@ class HomeController(
     @GetMapping("/view/{id}")
     fun view(model: Model, @PathVariable("id") id: Int): ModelAndView {
         model.addAllAttributes(prepareModelService.getModel())
-        val result = articleRepository.findById(id.toLong())
-        if (result.isEmpty) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND)
-        }
+        val result = articleRepository.findById(id.toLong()) ?: null ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
         logger.info(result.toString())
         val sArticle = result.get()
         sArticle.views = sArticle.views + 1
