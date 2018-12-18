@@ -53,6 +53,12 @@ class HomeController(
         logger.info("{}", authAdapterService.getAuthentication()?.authorities?.contains(role))
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
+        model.addAttribute("nextPage", page+1)
+        var prevPage = page - 1;
+        if (prevPage < 0) {
+            prevPage = 0;
+        }
+        model.addAttribute("prevPage", prevPage)
         logger.info("Hello world")
         logger.info("result {}", result.content)
         return ModelAndView("home")
@@ -114,6 +120,13 @@ class HomeController(
         logger.info("{}", authAdapterService.getAuthentication()?.authorities?.contains(role))
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
+        model.addAttribute("nextPage", page+1)
+        var prevPage = page - 1;
+        if (prevPage < 0) {
+            prevPage = 0;
+        }
+        model.addAttribute("prevPage", prevPage)
+
         logger.info("Hello world")
         logger.info("result {}", result.content)
         return ModelAndView("search")

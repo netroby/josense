@@ -30,6 +30,13 @@ class AdminController (
         val result =  articleRepository.findAll(pageable)
         model.addAttribute("result", result.content)
         model.addAllAttributes(prepareModelService.getModel())
+
+        model.addAttribute("nextPage", page+1)
+        var prevPage = page - 1;
+        if (prevPage < 0) {
+            prevPage = 0;
+        }
+        model.addAttribute("prevPage", prevPage)
         logger.info("Hello world")
         logger.info("result {}", result.content)
         return ModelAndView("admin/home")

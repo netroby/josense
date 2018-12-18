@@ -34,8 +34,8 @@
         <div class="txtcenter">
 
             <div class="paginav">
-                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if next_page??>${next_page}</#if>">Next page</a></div>
-                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if prev_page??>${prev_page}</#if>">Previous Page</a></div>
+                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if nextPage??>${nextPage?long?c}</#if>">Next page</a></div>
+                <div style="float:left;width:150px;text-align:center"><a href="/?page=<#if prevPage??>${prevPage?long?c}</#if>">Previous Page</a></div>
             </div>
 
         </div>
