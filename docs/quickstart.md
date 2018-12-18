@@ -35,6 +35,19 @@ docker run -d --restart=always -p 8080:8080 \
 
 ```
 
+## Docker compose
+
+```bash
+
+   josense:
+     image: josense
+     volumes:
+       - /home/data/www/josense/vol:/opt/vol # map the josense directory to container's /opt/vol, you can put config file into it
+     restart: always
+     command: /bin/java -Dfile.encoding=UTF-8  -Dspring.config.location=/opt/vol/application-dev.yml -jar /opt/josense.jar
+
+```
+
 
 ## nginx reverse proxy configure
 
