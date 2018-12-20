@@ -21,6 +21,13 @@ java  -Dfile.encoding=UTF-8  \
          --spring.config.location=/var/www/config/application-dev.yml
         -jar build/libs/josense-0.0.1-SNAPSHOT.jar
 ```
+## Create mariadb
+
+```
+docker volume create mydata
+docker run --restart=always --name mydb -v mydata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=admin@123 -d mariadb:10.4 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+
+```
 
 ## Build docker image
 
