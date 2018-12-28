@@ -80,3 +80,20 @@ server {
 }
 
 ```
+
+
+## Tomcat optimize
+
+The default tomcat setting will be not very good, you can optimize it ,by add these following config to your application-dev.yaml
+
+```
+
+server:
+    tomcat: 
+      max-connections: 100000 # Maximum number of connections that the server accepts and processes at any given time.
+      max-http-post-size: 200MB # Maximum size of the HTTP post content.
+      max-swallow-size: 200MB # Maximum amount of request body to swallow.
+      max-threads: 100000 # Maximum amount of worker threads.
+      min-spare-threads: 30 # Minimum amount of worker threads.
+
+```
