@@ -22,7 +22,7 @@
         <div class="blog-body">
           <#if result.content??>${result.content}</#if></div>
         <div class="blog-orig">
-            <p>Post: <#if result.publish_time??>${result.publish_time}</#if></p>
+            <p>Post: <#if r.publishTime??>${(r.publishTime * 1000)?number_to_datetime?string("yyyy.MM.dd HH:mm")}</#if></p>
             <p>Views: <#if result.views??>${result.views}</#if></p>
             <#if username??>
             <p><a href="/admin/edit/<#if result.aid??>${result.aid}</#if>">Edit blog</a></p>
