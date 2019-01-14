@@ -59,14 +59,22 @@ class AdminController (
         val result = articleRepository.findById(id.toLong());
         model.addAttribute("result", result.get())
         model.addAllAttributes(prepareModelService.getModel())
-        logger.info("result {}", result.toString().substring(0..220))
+        var resultString = result.toString()
+        if (resultString.length > 220) {
+            resultString = resultString.substring(0..220)
+        }
+        logger.info("result {}", resultString)
         return ModelAndView("admin/edit")
     }
     @PostMapping("/admin/save-add")
     fun saveAdd(model: Model, articleAdd: ArticleAdd): ModelAndView {
         val article = Article(title = articleAdd.title, content = articleAdd.content,
                 publishStatus = 1 )
-        logger.info("article {}", article.toString().substring(0..220))
+        var resultString = article.toString()
+        if (resultString.length > 220) {
+            resultString = resultString.substring(0..220)
+        }
+        logger.info("article {}", resultString)
         this.articleRepository.save(article)
         model.addAttribute("message", "Success")
         model.addAllAttributes(prepareModelService.getModel())

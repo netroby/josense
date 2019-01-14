@@ -123,7 +123,11 @@ class HomeController(
     fun view(model: Model, @PathVariable("id") id: Int): ModelAndView {
         model.addAllAttributes(prepareModelService.getModel())
         val result = articleRepository.findById(id.toLong()) ?: null ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
-        logger.info(result.toString().substring(0..220))
+        var resultString = result.toString()
+        if (resultString.length > 220) {
+            resultString = resultString.substring(0..220)
+        }
+        logger.info("result {}", resultString)
         val sArticle = result.get()
         sArticle.views = sArticle.views + 1
         articleRepository.save(sArticle)
@@ -140,7 +144,7 @@ class HomeController(
 
     @RequestMapping("/logout")
     fun logout(request: HttpServletRequest, response: HttpServletResponse): String {
-        var auth = authAdapterService.getAuthentication()
+        val auth = authAdapterService.getAuthentication()
         if (auth != null) {
             SecurityContextLogoutHandler().logout(request, response, auth)
         }
