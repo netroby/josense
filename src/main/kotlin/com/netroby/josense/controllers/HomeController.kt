@@ -2,6 +2,7 @@ package com.netroby.josense.controllers
 
 
 import com.netroby.josense.config.JosenseConfig
+import com.netroby.josense.event.ViewArticleEvent
 import com.netroby.josense.repository.ArticleRepository
 import com.netroby.josense.service.AuthAdapterService
 import com.netroby.josense.service.PrepareModelService
@@ -14,6 +15,7 @@ import com.rometools.rome.io.SyndFeedOutput
 import org.jsoup.Jsoup
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
@@ -34,7 +36,8 @@ class HomeController(
         @Autowired private val articleRepository: ArticleRepository,
         @Autowired private val prepareModelService: PrepareModelService,
         @Autowired private val authAdapterService: AuthAdapterService,
-        @Autowired private val josenseConfig: JosenseConfig
+        @Autowired private val josenseConfig: JosenseConfig,
+        @Autowired private val applicationEventPublisher: ApplicationEventPublisher
 ) {
     private val logger = LoggerFactory.getLogger("home")
     @GetMapping("/")
@@ -44,7 +47,6 @@ class HomeController(
         val pageable = PageRequest.of(page, 15, sort)
         val result = articleRepository.findAll(pageable)
         model.addAttribute("result", result.content)
-        val role = SimpleGrantedAuthority("ROLE_ADMIN")
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         model.addAttribute("nextPage", page+1)
@@ -107,7 +109,6 @@ class HomeController(
         logger.info("Search by keyword {}", keyword)
         val result = articleRepository.findByContentContainingOrTitleContaining(pageable, "%$keyword%", "%$keyword%")
         model.addAttribute("result", result.content)
-        val role = SimpleGrantedAuthority("ROLE_ADMIN")
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         model.addAttribute("nextPage", page+1)
@@ -128,10 +129,11 @@ class HomeController(
             resultString = resultString.substring(0..220)
         }
         logger.info("result {}", resultString)
+
         val sArticle = result.get()
-        sArticle.views = sArticle.views + 1
-        articleRepository.save(sArticle)
-        model.addAttribute("result", result.get())
+
+        applicationEventPublisher.publishEvent(ViewArticleEvent(sArticle))
+        model.addAttribute("result", sArticle)
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         return ModelAndView("view")

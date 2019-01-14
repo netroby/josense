@@ -10,21 +10,18 @@ import org.springframework.context.event.SimpleApplicationEventMulticaster
 import org.springframework.context.event.ApplicationEventMulticaster
 
 
-
 @SpringBootApplication
-class JosenseApplication {
+class JosenseApplication
 
-    @Bean
-    fun applicationEventMulticaster(): ApplicationEventMulticaster {
-        val eventMulticaster = SimpleApplicationEventMulticaster()
-        eventMulticaster.setTaskExecutor(SimpleAsyncTaskExecutor())
-        eventMulticaster.setErrorHandler(TaskUtils.LOG_AND_SUPPRESS_ERROR_HANDLER)
-        return eventMulticaster
-    }
+@Bean
+fun applicationEventMulticaster(): ApplicationEventMulticaster {
+    val eventMulticaster = SimpleApplicationEventMulticaster()
+    eventMulticaster.setTaskExecutor(SimpleAsyncTaskExecutor())
+    eventMulticaster.setErrorHandler(TaskUtils.LOG_AND_SUPPRESS_ERROR_HANDLER)
+    return eventMulticaster
+}
 
-    fun main(args: Array<String>) {
-        runApplication<JosenseApplication>(*args)
-
-    }
+fun main(args: Array<String>) {
+    runApplication<JosenseApplication>(*args)
 
 }
