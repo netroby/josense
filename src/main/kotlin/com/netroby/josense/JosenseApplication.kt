@@ -8,9 +8,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.core.task.SimpleAsyncTaskExecutor
 import org.springframework.context.event.SimpleApplicationEventMulticaster
 import org.springframework.context.event.ApplicationEventMulticaster
+import org.springframework.scheduling.annotation.EnableAsync
 
 
 @SpringBootApplication
+@EnableAsync
 class JosenseApplication
 
 @Bean
