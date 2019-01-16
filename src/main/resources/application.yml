@@ -14,6 +14,10 @@ spring:
       maxWait: 60000
       validationQuery: SELECT 1
       filters: stat,wall
+  cache:
+    cache-names: gkcache,gbcache
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s
 account:
   username: admin
   password: admin@123
@@ -22,4 +26,3 @@ josense:
   site:
       name: HardCoder
       description: "Linux, opensource, golang,java,spring boot"
-
