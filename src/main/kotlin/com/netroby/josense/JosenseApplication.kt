@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.scheduling.support.TaskUtils
 import freemarker.ext.dom.NodeModel.setErrorHandler
+import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.core.task.SimpleAsyncTaskExecutor
 import org.springframework.context.event.SimpleApplicationEventMulticaster
@@ -13,6 +14,7 @@ import org.springframework.scheduling.annotation.EnableAsync
 
 @SpringBootApplication
 @EnableAsync
+@EnableCaching
 class JosenseApplication
 
 @Bean
