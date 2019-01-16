@@ -26,3 +26,10 @@ josense:
   site:
       name: HardCoder
       description: "Linux, opensource, golang,java,spring boot"
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        cache: TRACE
