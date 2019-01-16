@@ -4,6 +4,7 @@ package com.netroby.josense.controllers
 import com.netroby.josense.config.JosenseConfig
 import com.netroby.josense.event.ViewArticleEvent
 import com.netroby.josense.repository.ArticleRepository
+import com.netroby.josense.service.ArticleService
 import com.netroby.josense.service.AuthAdapterService
 import com.netroby.josense.service.PrepareModelService
 import com.netroby.josense.vo.Article
@@ -33,7 +34,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Controller
 class HomeController(
-        @Autowired private val articleRepository: ArticleRepository,
+        @Autowired private val articleService: ArticleService,
         @Autowired private val prepareModelService: PrepareModelService,
         @Autowired private val authAdapterService: AuthAdapterService,
         @Autowired private val josenseConfig: JosenseConfig,
@@ -43,13 +44,11 @@ class HomeController(
     @GetMapping("/")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): ModelAndView {
         model.addAllAttributes(prepareModelService.getModel())
-        val sort = Sort(Sort.Direction.DESC, "aid")
-        val pageable = PageRequest.of(page, 15, sort)
-        val result = articleRepository.findAll(pageable)
+        val result = articleService.findAll(page)
         model.addAttribute("result", result.content)
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
-        model.addAttribute("nextPage", page+1)
+        model.addAttribute("nextPage", page + 1)
         var prevPage = page - 1;
         if (prevPage < 0) {
             prevPage = 0;
@@ -63,9 +62,7 @@ class HomeController(
     @ResponseBody
     fun rss(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): String {
         model.addAllAttributes(prepareModelService.getModel())
-        val sort = Sort(Sort.Direction.DESC, "aid")
-        val pageable = PageRequest.of(page, 15, sort)
-        val result = articleRepository.findAll(pageable)
+        val result = articleService.findAll(page)
         model.addAttribute("result", result.content)
         val feed = SyndFeedImpl()
         feed.feedType = "atom_1.0"
@@ -104,14 +101,12 @@ class HomeController(
     @GetMapping("/search")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int, @RequestParam(value = "keyword", defaultValue = "") keyword: String): ModelAndView {
         model.addAllAttributes(prepareModelService.getModel())
-        val sort = Sort(Sort.Direction.DESC, "aid")
-        val pageable = PageRequest.of(page, 15, sort)
         logger.info("Search by keyword {}", keyword)
-        val result = articleRepository.findByContentContainingOrTitleContaining(pageable, "%$keyword%", "%$keyword%")
+        val result = articleService.findByContentContainingOrTitleContaining(page, keyword)
         model.addAttribute("result", result.content)
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
-        model.addAttribute("nextPage", page+1)
+        model.addAttribute("nextPage", page + 1)
         var prevPage = page - 1
         if (prevPage < 0) {
             prevPage = 0
@@ -123,7 +118,10 @@ class HomeController(
     @GetMapping("/view/{id}")
     fun view(model: Model, @PathVariable("id") id: Int): ModelAndView {
         model.addAllAttributes(prepareModelService.getModel())
-        val result = articleRepository.findById(id.toLong()) ?: null ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        val result = articleService.findById(id.toLong())
+        if (!result.isPresent) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        }
         var resultString = result.toString()
         if (resultString.length > 220) {
             resultString = resultString.substring(0..220)
