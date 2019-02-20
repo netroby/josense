@@ -6,8 +6,8 @@
         </div>
         <nav class="collapse navbar-collapse " role="navigation">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
+                <li <#if homeActive??>class="active"</#if>><a href="/">Home</a></li>
+                <li <#if aboutActive??>class="active"</#if>><a href="/about">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>

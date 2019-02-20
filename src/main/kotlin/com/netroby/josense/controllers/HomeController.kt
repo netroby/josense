@@ -49,6 +49,7 @@ class HomeController(
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         model.addAttribute("nextPage", page + 1)
+        model.addAttribute("homeActive", true)
         var prevPage = page - 1;
         if (prevPage < 0) {
             prevPage = 0;
@@ -95,6 +96,7 @@ class HomeController(
         model.addAllAttributes(prepareModelService.getModel())
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
+        model.addAttribute("aboutActive", true)
         return ModelAndView("about")
     }
 
