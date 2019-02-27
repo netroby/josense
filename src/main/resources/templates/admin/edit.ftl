@@ -60,7 +60,7 @@
         <textarea name="content" class="form-control" style="height:500px"><#if result.content??>${result.content}</#if></textarea></div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <input type="hidden" name="aid" value="<#if result.aid??>${result.aid}</#if>">
+            <input type="hidden" name="aid" value="<#if result.aid??>${result.aid?long?c}</#if>">
               <#if _csrf??>
             <input type="hidden" name="${_csrf.parameterName}"
                    value="${_csrf.token}" />

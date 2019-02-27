@@ -25,7 +25,7 @@
             <p>Post: <#if result.publishTime??>${(result.publishTime * 1000)?number_to_datetime?string("yyyy.MM.dd HH:mm")}</#if></p>
             <p>Views: <#if result.views??>${result.views}</#if></p>
             <#if username??>
-            <p><a href="/admin/edit/<#if result.aid??>${result.aid}</#if>">Edit blog</a></p>
+            <p><a href="/admin/edit/<#if result.aid??>${result.aid?long?c}</#if>">Edit blog</a></p>
             </#if>
         </div>
             </#if>
