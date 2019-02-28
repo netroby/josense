@@ -1,6 +1,6 @@
 package com.netroby.josense.controllers
 
-import com.netroby.josense.repository.ArticleRepository
+import com.netroby.josense.service.ArticleService
 import com.netroby.josense.service.AuthAdapterService
 import com.netroby.josense.service.PrepareModelService
 import com.netroby.josense.vo.Article
@@ -8,8 +8,6 @@ import com.netroby.josense.vo.ArticleAdd
 import com.netroby.josense.vo.ArticleEdit
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -17,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView
 
 @Controller
 class AdminController (
-        @Autowired private val articleRepository: ArticleRepository,
+        @Autowired private val articleService: ArticleService,
         @Autowired private val authAdapterService: AuthAdapterService,
         @Autowired private val prepareModelService: PrepareModelService
         ){
@@ -25,16 +23,14 @@ class AdminController (
 
     @GetMapping("/admin")
     fun home(model: Model, @RequestParam(value = "page", defaultValue = "0") page: Int): ModelAndView {
-        val sort = Sort(Sort.Direction.DESC, "aid")
-        val pageable = PageRequest.of(page, 15, sort)
-        val result =  articleRepository.findAll(pageable)
+        val result =  this.articleService.findAll(page)
         model.addAttribute("result", result.content)
         model.addAllAttributes(prepareModelService.getModel())
 
         model.addAttribute("nextPage", page+1)
-        var prevPage = page - 1;
+        var prevPage = page - 1
         if (prevPage < 0) {
-            prevPage = 0;
+            prevPage = 0
         }
         model.addAttribute("prevPage", prevPage)
         logger.info("result {}", result.content.toString().substring(0..220))
@@ -56,7 +52,7 @@ class AdminController (
     }
     @GetMapping("/admin/edit/{id}")
     fun edit(model: Model, @PathVariable("id") id: Int): ModelAndView {
-        val result = articleRepository.findById(id.toLong());
+        val result = this.articleService.findById(id.toLong());
         model.addAttribute("result", result.get())
         model.addAllAttributes(prepareModelService.getModel())
         var resultString = result.toString()
@@ -75,7 +71,7 @@ class AdminController (
             resultString = resultString.substring(0..220)
         }
         logger.info("article {}", resultString)
-        this.articleRepository.save(article)
+        this.articleService.save(article)
         model.addAttribute("message", "Success")
         model.addAllAttributes(prepareModelService.getModel())
         return ModelAndView("message")
@@ -83,7 +79,7 @@ class AdminController (
     @PostMapping("/admin/save-edit")
     fun saveEdit(model: Model, articleEdit: ArticleEdit): ModelAndView {
         val article = Article(aid = articleEdit.aid, title = articleEdit.title, content = articleEdit.content)
-        this.articleRepository.save(article)
+        this.articleService.save(article)
         model.addAttribute("message", "Success")
         model.addAllAttributes(prepareModelService.getModel())
         return ModelAndView("message")
