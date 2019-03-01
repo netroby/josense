@@ -13,6 +13,7 @@
             height: 400,
             codesample_languages: [
                 {text: 'HTML/XML', value: 'markup'},
+                {text: 'bash', value: 'bash'},
                 {text: 'JavaScript', value: 'javascript'},
                 {text: 'CSS', value: 'css'},
                 {text: 'PHP', value: 'php'},
