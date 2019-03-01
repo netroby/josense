@@ -7,6 +7,7 @@
     <link href="/rss" rel="alternate" type="application/rss+xml" title="Hard Coder" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/default.css">
+    <link rel="stylesheet" href="/assets/prism.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <#include "ga.ftl">
 </head>
@@ -51,6 +52,6 @@
 </div>
 
 <#include "donate.ftl">
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="/assets/prism.js"></script>
 </body>
 </html>
