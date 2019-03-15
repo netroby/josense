@@ -8,9 +8,9 @@ spring:
     username: root
     password: admin@123
     druid:
-      initialSize: 5
-      minIdle: 5
-      maxActive: 100
+      initialSize: 16
+      minIdle: 16
+      maxActive: 10000
       maxWait: 60000
       validationQuery: SELECT 1
       filters: stat,wall
