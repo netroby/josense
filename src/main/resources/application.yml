@@ -18,6 +18,10 @@ spring:
     cache-names: gkcache,gbcache
     caffeine:
       spec: maximumSize=500,expireAfterWrite=600s
+
+server:
+  compression:
+    enabled: true
 account:
   username: admin
   password: admin@123
@@ -29,7 +33,7 @@ josense:
 
 logging:
   level:
-    root: info
+    root: debug
     org:
       springframework:
         cache: TRACE
