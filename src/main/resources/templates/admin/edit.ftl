@@ -9,7 +9,7 @@
 <body>
 
 <#include "../header.ftl">
-<div class="container">
+<div class="container mainBody">
 <form action="/admin/save-edit" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
     <div class="form-group"><label>Title:</label><input name="title" class="form-control" value="<#if result.title??>${result.title}</#if>"></div>
     <div class="form-group">

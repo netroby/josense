@@ -46,15 +46,16 @@ class AdminController (
     }
     @GetMapping("/admin/add")
     fun add(model: Model): ModelAndView {
+        model.addAllAttributes(prepareModelService.getModel())
         model.addAttribute("username", authAdapterService.getUserName())
         model.addAttribute("isAuthenticated", authAdapterService.isAuthenticated())
         return ModelAndView("admin/add")
     }
     @GetMapping("/admin/edit/{id}")
     fun edit(model: Model, @PathVariable("id") id: Int): ModelAndView {
-        val result = this.articleService.findById(id.toLong());
-        model.addAttribute("result", result.get())
         model.addAllAttributes(prepareModelService.getModel())
+        val result = this.articleService.findById(id.toLong())
+        model.addAttribute("result", result.get())
         var resultString = result.toString()
         if (resultString.length > 220) {
             resultString = resultString.substring(0..220)

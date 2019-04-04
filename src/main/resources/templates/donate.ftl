@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container donation">
     <div class="content">
         <div class="txtcenter">Follow me: <a href="http://twitter.com/netroby">@twitter</a> <a href="https://github.com/netroby">@github</a>
         </div>

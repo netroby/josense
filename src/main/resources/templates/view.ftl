@@ -14,7 +14,7 @@
 <body>
 
 <#include "header.ftl">
-<div class="container">
+<div class="container mainBody">
     <div class="content">
         <#if result??>
         <div class="blog-title-box">

@@ -20,7 +20,7 @@
 <body>
 
 <#include "../header.ftl">
-<div class="container">
+<div class="container mainBody">
     <div class="content">
         <ul class="blog-list">
  <#if result??>

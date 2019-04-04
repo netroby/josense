@@ -13,7 +13,7 @@
 <body>
 
 <#include "header.ftl">
-<div class="container">
+<div class="container mainBody">
     <div class="content">
         <form action="/login" method="post">
             <div class="form-group">

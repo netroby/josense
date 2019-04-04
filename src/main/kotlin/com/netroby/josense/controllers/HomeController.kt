@@ -140,8 +140,9 @@ class HomeController(
     }
 
     @RequestMapping("/login")
-    fun login(): String {
-        return "login"
+    fun login(model: Model): ModelAndView {
+        model.addAllAttributes(prepareModelService.getModel())
+        return ModelAndView("login")
     }
 
     @RequestMapping("/logout")

@@ -1,31 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-static-top navbar-inverse">
+    <div class="container d-flex justify-content-between">
 
-<header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
-    <div class="container">
-        <div class="">
-            <a href="/" class="navbar-brand"><#if siteName??>${siteName}</#if></a>
-        </div>
-        <nav class="collapse navbar-collapse " role="navigation">
-            <ul class="nav navbar-nav">
-                <li <#if homeActive??>class="active"</#if>><a href="/">Home</a></li>
-                <li <#if aboutActive??>class="active"</#if>><a href="/about">About</a></li>
+        <a href="/" class="navbar-brand"><#if siteName??>${siteName}</#if></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item <#if homeActive??>active</#if>"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item <#if aboutActive??>active</#if>"><a class="nav-link" href="/about">About</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
+
+            <div class="navbar-text">
                 <#if isAuthenticated?? && isAuthenticated == true>
-    <div style="color:white">
-        Welcome ${username}
-        <a href="/admin">Dashboard</a>
-        <a href="/admin/add">Add blog</a>
-        <a href="/logout">Logout</a>
-    </div>
+                    Welcome ${username}
+                    <a href="/admin">Dashboard</a>
+                    <a href="/admin/add">Add blog</a>
+                    <a href="/logout">Logout</a>
                 <#else>
-    <div> <a href="/login">Login</a> </div>
+                    <a href="/login">Login</a>
                 </#if>
-                    <form action="/search" method="get" style="margin-top:10px">
-                        <input name="keyword"><input type="submit" value="Search" class="btn btn-primary" style="margin:0px 10px">
-                    </form>
-                </li>
-            </ul>
-        </nav>
+            </div>
+            <form action="/search" method="get" class="form-inline my-2 my-lg-0" style="margin-top:10px">
+                <input name="keyword"><input type="submit" value="Search" class="btn btn-primary"
+                                             style="margin:0px 10px">
+            </form>
+        </div>
     </div>
-</header>
+</nav>

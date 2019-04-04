@@ -9,7 +9,7 @@
 </head>
 <body>
 <#include "header.ftl">
-<div class="container">
+<div class="container mainBody">
     <div class="content">
         <div class="txtcenter">
             <p><#if message??>${message}</#if></p>

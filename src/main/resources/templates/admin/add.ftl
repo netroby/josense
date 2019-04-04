@@ -9,7 +9,7 @@
 <body>
 
 <#include "../header.ftl">
-<div class="container">
+<div class="container mainBody">
     <div style="float:right"><a href="/admin/files" target="_blank">Files &amp; Upload</a></div>
     <form action="/admin/save-add" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
         <div class="form-group"><label>Title:</label><input name="title" class="form-control"></div>

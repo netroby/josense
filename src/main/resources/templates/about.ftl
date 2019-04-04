@@ -12,7 +12,7 @@
 </head>
 <body>
 <#include "header.ftl">
-<div class="container">
+<div class="container mainBody">
     <div class="content">
         <h2>About me</h2>
         <p>Write codes, since 2002.</p>
