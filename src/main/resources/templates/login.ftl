@@ -5,7 +5,7 @@
     <title><#if title??>${title}</#if> <#if siteName??>${siteName}</#if> powered by josense!</title>
     <meta name="description" content="<#if siteDescription??>${siteDescription}</#if>" />
     <link href="/rss" rel="alternate" type="application/rss+xml" title="Hard Coder" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/default.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
 <#include "ga.ftl">
